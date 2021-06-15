@@ -8,7 +8,7 @@ const app = express()
 
 app
 	.use(express.static(`${__dirname}/public`))
-	.use(cors())
+	.use(cors('*'))
 	.use(cookieParser())
 
 routes.forEach(({ pattern, handler, method = 'GET', redirect = false }) => {
@@ -17,6 +17,9 @@ routes.forEach(({ pattern, handler, method = 'GET', redirect = false }) => {
 			console.log(pattern)
 			handler(req, res)
 		} else {
+			res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+			res.setHeader('Access-Control-Allow-Credentials', true);
+
 			const { statusCode, headers, body } = await handler(req, res)
 
 			Object.entries(headers).forEach(([key, value]) => res.header(key, value))
