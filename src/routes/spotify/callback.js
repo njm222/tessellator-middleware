@@ -12,9 +12,6 @@ const callback = (req, res) => {
 	const state = req.query.state || null
 	const storedState = req.cookies ? req.cookies[stateKey] : null
 	const storedVerifier = req.cookies ? req.cookies[verifierKey] : null
-
-	console.log(state)
-	console.log(req.cookies)
 	
 	if (state === null || state !== storedState) {
 		res.redirect(`/#${querystring.stringify({ error: 'state_mismatch' })}`)
