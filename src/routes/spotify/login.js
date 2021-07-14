@@ -11,7 +11,6 @@ const login = (req, res) => {
 	res.cookie(challengeKey, challenge)
 	res.cookie(verifierKey, verifier)
 	res.cookie(stateKey, state)
-	
 	// your application requests authorization
 	const scope = 'user-read-private user-read-email user-top-read user-read-recently-played user-modify-playback-state user-read-playback-state user-read-currently-playing app-remote-control streaming user-library-modify user-library-read'
 	const uri = `https://accounts.spotify.com/authorize?${querystring.stringify({

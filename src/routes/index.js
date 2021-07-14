@@ -11,6 +11,7 @@ module.exports = [
 	{
 		pattern: '/refresh_token',
 		handler: 'spotify/refresh-token',
+		method: 'POST',
 	},
 	{
 		pattern: '/user/auth',
@@ -19,10 +20,12 @@ module.exports = [
 	{
 		pattern: '/user/add',
 		handler: 'firebase/user-add',
+		method: 'POST',
 	},
 	{
 		pattern: 'stats/track/add',
-		handler: 'firebase/track-add'
+		handler: 'firebase/track-add',
+		method: 'POST',
 	}
   
 ].map(({ handler, ...rest }) => ({
