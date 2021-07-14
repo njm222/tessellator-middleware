@@ -3,22 +3,23 @@ const express = require('express') // Express web server framework
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const routes = require('./routes/index.js')
+const config = require('./config/index.js')
+const { frontendUrl } = config
 
 const app = express()
 
 app
 	.use(express.static(`${__dirname}/public`))
-	.use(cors('*'))
+	.use(cors({credentials: true, origin: frontendUrl}))
 	.use(cookieParser())
 
 routes.forEach(({ pattern, handler, method = 'GET', redirect = false }) => {
 	app[method.toLowerCase()](pattern, async (req, res) => {
 		if (redirect) {
-			console.log(pattern)
 			handler(req, res)
 		} else {
-			res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-			res.setHeader('Access-Control-Allow-Credentials', true);
+			res.setHeader('Access-Control-Allow-Origin', frontendUrl)
+			res.setHeader('Access-Control-Allow-Credentials', true)
 
 			const { statusCode, headers, body } = await handler(req, res)
 

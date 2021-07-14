@@ -4,5 +4,6 @@ module.exports = {
 	clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
 	stateKey: 'spotify_auth_state',
 	challengeKey: 'spotify_auth_challenge',
-	verifierKey: 'spotify_auth_verifier'
+	verifierKey: 'spotify_auth_verifier',
+	frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
 }
