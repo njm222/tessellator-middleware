@@ -12,6 +12,7 @@ app
 	.use(express.static(`${__dirname}/public`))
 	.use(cors({credentials: true, origin: frontendUrl}))
 	.use(cookieParser())
+	.use(express.json())
 
 routes.forEach(({ pattern, handler, method = 'GET', redirect = false }) => {
 	app[method.toLowerCase()](pattern, async (req, res) => {
@@ -21,7 +22,7 @@ routes.forEach(({ pattern, handler, method = 'GET', redirect = false }) => {
 			res.setHeader('Access-Control-Allow-Origin', frontendUrl)
 			res.setHeader('Access-Control-Allow-Credentials', true)
 
-			const { statusCode, headers, body } = await handler(req, res)
+			const { statusCode, headers = {}, body } = await handler(req, res)
 
 			Object.entries(headers).forEach(([key, value]) => res.header(key, value))
 

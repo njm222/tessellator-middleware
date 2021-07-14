@@ -25,7 +25,6 @@ const login = (req, res) => {
 
 	return {
 		statusCode: 200,
-		headers: {},
 		body: {
 			uri
 		}

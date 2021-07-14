@@ -3,9 +3,9 @@ const config = require('../../config/index.js')
 
 const { clientId } = config
 
-const refreshToken = (req) => {
-	// requesting access token from refresh token
-	const { refreshToken } = req.query
+const refreshToken = async (req) => {
+	// requesting access_token from refresh_token
+	const refreshToken = req.body?.refreshToken
 	const authOptions = {
 		method: 'post',
 		url: 'https://accounts.spotify.com/api/token',
@@ -20,20 +20,18 @@ const refreshToken = (req) => {
 		json: true
 	}
 
-	axios(authOptions, (error, response, body) => {
-		if (!error && response.statusCode === 200) {
-			const { accessToken } = body
-			return {
-				statusCode: response.statusCode,
-				body: accessToken,
-			}
-		} else {
-			return {
-				statusCode: response.statusCode,
-				body: error
-			}
+	try {
+		const { data, status } = await axios(authOptions)
+		return {
+			statusCode: status,
+			body: data,
 		}
-	}).catch(console.log)
+	} catch (error) {
+		return {
+			statusCode: 500,
+			body: error,
+		}
+	}
 }
 
 module.exports = refreshToken
