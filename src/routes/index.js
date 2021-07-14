@@ -9,7 +9,7 @@ module.exports = [
 		handler: 'spotify/callback',
 	},
 	{
-		pattern: '/refresh_token',
+		pattern: '/refresh-token',
 		handler: 'spotify/refresh-token',
 		method: 'POST',
 	},
