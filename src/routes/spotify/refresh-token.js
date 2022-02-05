@@ -10,7 +10,7 @@ const refreshToken = async (req) => {
 		method: 'post',
 		url: 'https://accounts.spotify.com/api/token',
 		params: {
-			grant_type: 'refresh_token',
+			grant_type: 'authorization_code',
 			refresh_token: refreshToken,
 			client_id: clientId,
 		},
